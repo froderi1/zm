@@ -23,9 +23,20 @@ sort -k9 -t'/' </tmp/h_list.txt >/tmp/h_list_s.txt
 rm -rf /tmp/ffmpeg_files_h
 mkdir /tmp/ffmpeg_files_h
 
-x=0; for i in `cat /tmp/h_list_s.txt`; do counter=$(printf %05d $x); ln -s "$i" /tmp/ffmpeg_files_h/img"$counter".jpg; x=$(($x+1)); done
+x=0
+for i in `cat /tmp/h_list_s.txt`
+  do
+    counter=$(printf %05d $x)
+    ln -s "$i" /tmp/ffmpeg_files_h/img"$counter".jpg; x=$(($x+1))
+  done
 
-/usr/bin/ffmpeg -y -r 10 -f image2 -i /tmp/ffmpeg_files_h/img%05d.jpg -c:v libx264 -preset veryfast -an -crf 27 /tmp/tmp.avi
+/usr/bin/ffmpeg \
+-y -r 10 \
+-f image2 \
+-i /tmp/ffmpeg_files_h/img%05d.jpg \
+-c:v libx264 -preset veryfast \
+-an -crf 27 \
+/tmp/tmp.avi
 
 mv -f /tmp/tmp.avi /mnt/128/cam/${gestern}.avi
 
