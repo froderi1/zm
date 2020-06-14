@@ -5,6 +5,7 @@ trap '' HUP
 rate=$1
 if [ -z $rate ]; then rate=10 ; fi
 
+targetpath="/home/frank/zm-store"
 
 heute=`date +"%F"`
 gestern=`date --date="1 days ago" +"%F"`
@@ -39,6 +40,6 @@ done
 -c:v libx264 -preset veryfast -an \
 -crf 27 /tmp/tmp.avi
 
-mv -f /tmp/tmp.avi /home/frank/zm-store/${gestern}.avi
+mv -f /tmp/tmp.avi $targetpath/${gestern}.avi
 
 rm -rf /tmp/ffmpeg_files_h

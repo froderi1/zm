@@ -5,6 +5,8 @@ trap '' HUP
 rate=$1
 if [ -z $rate ]; then rate=10 ; fi
 
+targetpath="/home/frank/zm-store"
+
 heute=`date +"%F"`
 gestern=`date --date="1 days ago" +"%F"`
 Year=`date +"%Y"`
@@ -38,7 +40,7 @@ x=0; for i in `cat /tmp/h_list_s.txt`; do counter=$(printf %05d $x); ln -s "$i" 
 -c:v libx264 -preset veryfast \
 -an -crf 27 /tmp/today.avi
 
-mv -f /tmp/today.avi /home/frank/zm-store/today.avi
+mv -f /tmp/today.avi $targetpath/today.avi
 
 rm -rf /tmp/ffmpeg_files_h
 rm -f /tmp/*.avi /tmp/*.txt
