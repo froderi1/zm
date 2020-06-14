@@ -39,6 +39,6 @@ done
 -c:v libx264 -preset veryfast -an \
 -crf 27 /tmp/tmp.avi
 
-mv -f /tmp/tmp.avi /mnt/128/cam/${gestern}.avi
+mv -f /tmp/tmp.avi /home/frank/zm-store/${gestern}.avi
 
 rm -rf /tmp/ffmpeg_files_h
