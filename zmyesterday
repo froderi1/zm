@@ -43,3 +43,4 @@ done
 mv -f /tmp/tmp.avi $targetpath/${gestern}.avi
 
 rm -rf /tmp/ffmpeg_files_h
+rm -f /tmp/*.avi /tmp/*.txt
