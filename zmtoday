@@ -38,9 +38,9 @@ x=0; for i in `cat /tmp/h_list_s.txt`; do counter=$(printf %05d $x); ln -s "$i" 
 -y -r ${rate} \
 -f image2 -i /tmp/ffmpeg_files_h/img%05d.jpg \
 -c:v libx264 -preset veryfast \
--an -crf 27 /tmp/today.avi
+-an -crf 27 /tmp/today.mp4
 
-mv -f /tmp/today.avi $targetpath/today.avi
+mv -f /tmp/today.mp4 $targetpath/today.mp4
 
 rm -rf /tmp/ffmpeg_files_h
 rm -f /tmp/*.avi /tmp/*.txt

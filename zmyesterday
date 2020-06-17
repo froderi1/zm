@@ -38,9 +38,9 @@ done
 -r ${rate} \
 -f image2 -i /tmp/ffmpeg_files_h/img%05d.jpg \
 -c:v libx264 -preset veryfast -an \
--crf 27 /tmp/tmp.avi
+-crf 27 /tmp/tmp.mp4
 
-mv -f /tmp/tmp.avi $targetpath/${gestern}.avi
+mv -f /tmp/tmp.mp4 $targetpath/${gestern}.mp4
 
 rm -rf /tmp/ffmpeg_files_h
 rm -f /tmp/*.avi /tmp/*.txt
