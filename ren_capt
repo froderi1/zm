@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Specify the starting directory
+start_directory=$1
+
+# Use find to locate files
+find "$start_directory" -type f -name '*-capture.jpg' -print0 |
+while IFS= read -r -d '' file; do
+  # Get the immediate parent directory name and filename without the path
+  dir=$(basename "$(dirname "$file")")
+  prefix=$(basename "$file" | sed 's#-capture.jpg$##')
+
+  # Extract the directory name and pad with leading zeros if it's a number
+  padded_dirname=$(printf "%05d" "$dir")
+
+  # Form the new filename
+  new_filename="${start_directory}/${padded_dirname}_${prefix}.jpg"
+
+  # Rename the file
+  mv "$file" "$new_filename"
+
+  echo "Renamed: $file to $new_filename"
+done

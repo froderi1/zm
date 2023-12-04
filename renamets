@@ -1,0 +1,32 @@
+#!/bin/bash
+
+rename_files() {
+  local dir="$1"
+  local format="%Y%m%d%H%M%S"  # You can customize the timestamp format as needed
+
+  # Iterate through each file in the directory
+  for file in "$dir"/*; do
+    if [ -f "$file" ]; then  # Check if it's a regular file
+      # Get the creation timestamp of the file
+      timestamp=$(stat -c %W "$file")
+
+      # Format the timestamp
+      formatted_timestamp=$(date -d "@$timestamp" +"$format")
+
+      # Extract the file extension
+      extension="${file##*.}"
+
+      # Create the new filename with the timestamp
+      new_filename="${dir}/${formatted_timestamp}.${extension}"
+
+      # Rename the file
+      mv "$file" "$new_filename"
+      echo "Renamed: $file to $new_filename"
+    elif [ -d "$file" ]; then  # If it's a directory, recursively call the function
+      rename_files "$file"
+    fi
+  done
+}
+
+# Replace '/path/to/your/folder' with the actual path to your folder
+rename_files "/home/frank/18"
