@@ -1,0 +1,11 @@
+#!/bin/bash
+
+gestern=`date --date="1 days ago" +"%F"`
+
+sourcedir="/var/cache/zoneminder/events/1/${gestern}"
+rate=40
+tempdir=`mktemp -d`
+
+ren-capt $sourcedir $tempdir
+
+mk-mp4 $tempdir $gestern /home/frank/zm-store

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# make a video from images in sourcedir $1
+# name it $2, and move it to $3
+
+now=`date +"%Y%m%d-%H%M"`
+rate=12.5
+
+if [ -z $1 ]; then
+   sourcedir="."
+else
+   sourcedir="$1"
+fi
+
+if [ -z $2 ]; then
+   moviename=$now
+else
+   moviename="$2"
+fi
+
+if [ -z $3 ]; then
+   targetdir="."
+else
+   targetdir="$3"
+fi
+
+/usr/bin/ffmpeg \
+-y -r $rate \
+-pattern_type glob -i "${sourcedir}/*.jpg" \
+-c:v libx264 \
+-an \
+-crf 27 \
+${targetdir}/${moviename}.mp4
+
+#-preset veryfast
+

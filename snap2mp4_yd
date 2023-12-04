@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# make a video from images in sourcedir $1
+# at rate $2
+
+now=`date +"%Y%m%d-%H%M"`
+gestern=`date --date="1 days ago" +"%F"`
+sourcedir="/home/frank/park/${gestern}"
+rate=40
+#tempdir=`mktemp -d`
+
+if [ -z $sourcedir ]; then #exit 0 ; fi
+   sourcedir=pwd
+fi
+
+find $sourcedir -type f -name "*.jpg" -size -100k -delete
+/usr/local/bin/2dark $sourcedir -d 0.09
+
+#cp $sourcedir/*.jpg $tempdir
+
+/usr/bin/ffmpeg \
+-y -r $rate \
+-pattern_type glob -i "${sourcedir}/*.jpg" \
+-c:v libx264 \
+-preset veryfast -an \
+-crf 27 \
+/home/frank/park/${gestern}/${gestern}.mp4
+
+cp /home/frank/park/${gestern}/${gestern}.mp4 /home/frank/www/vid/yesterday.mp4
+#scp /home/frank/park/${gestern}.mp4 frank@v2202202169316180504.hotsrv.de:/home/frank/www/vid/yesterday.mp4

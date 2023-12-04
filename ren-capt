@@ -1,7 +1,10 @@
 #!/bin/bash
+# done with chatgpt
 
-# Specify the starting directory
+# Specify the directories
 start_directory=$1
+if [ -z $1 ]; then start_directory=pwd; else start_directory=$1; fi
+if [ -z $2 ]; then target_directory=$start_directory; else target_directory=$2; fi
 
 # Use find to locate files
 find "$start_directory" -type f -name '*-capture.jpg' -print0 |
@@ -17,7 +20,8 @@ while IFS= read -r -d '' file; do
   new_filename="${start_directory}/${padded_dirname}_${prefix}.jpg"
 
   # Rename the file
-  mv "$file" "$new_filename"
-
-  echo "Renamed: $file to $new_filename"
+  cp "$file" "$new_filename"
+  cp "$new_filename" $target_directory
+  
+#  echo "Renamed: $file to $new_filename"
 done
