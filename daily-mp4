@@ -1,11 +1,23 @@
 #!/bin/bash
 
 gestern=`date --date="1 days ago" +"%F"`
+today=`date +"%F"`
 
-sourcedir="/var/cache/zoneminder/events/1/${gestern}"
+if [ -z $1 ]; then
+   sourcedir="/var/cache/zoneminder/events/1/${gestern}"
+   mname=${gestern}
+fi
+
+if [ $1 = "TDAY" ]; then
+   sourcedir="/var/cache/zoneminder/events/1/${today}"
+   mname=${today}
+fi
+
 rate=40
 tempdir=`mktemp -d`
 
-ren-capt $sourcedir $tempdir
+#rename files to foldername_imagenumber.jpg
+sudo /usr/local/bin/ren-capt $sourcedir $tempdir
 
-mk-mp4 $tempdir $gestern /home/frank/zm-store
+#create mp4 from images in $1 name it to what is stored in $2 write it to $3
+sudo /usr/local/bin/mk-mp4 $tempdir $mname /home/frank/zm-store

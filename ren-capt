@@ -21,7 +21,7 @@ while IFS= read -r -d '' file; do
 
   # Rename the file
   cp "$file" "$new_filename"
-  cp "$new_filename" $target_directory
+  mv $start_directory/*.jpg $target_directory
   
 #  echo "Renamed: $file to $new_filename"
 done
