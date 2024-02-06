@@ -4,7 +4,8 @@
 # name it $2, and move it to $3
 
 now=`date +"%Y%m%d-%H%M"`
-rate=12.5
+rate=120
+tempdir=`mktemp -d`
 
 if [ -z $1 ]; then
    sourcedir="."
@@ -32,5 +33,7 @@ fi
 -crf 27 \
 ${targetdir}/${moviename}.mp4
 
+#ffmpeg -y -i ${targetdir}/${moviename}.mp4 -map 0:v -c:v copy -bsf:v h264_mp4toannexb ${tempdir}/raw.h264
+#ffmpeg -y -fflags +genpts -r $rate -i ${tempdir}/raw.h264 -c:v copy ${targetdir}/${moviename}-fast.mp4
 #-preset veryfast
 
