@@ -1,0 +1,11 @@
+#!/bin/bash
+# This script finds out how full a disk is and publishes it to a publich mqtt b>
+
+device="M6800_500"
+#disk=`df -Ph / | awk 'NR == 2{print $5+0}'`   #alternative way
+disk=`df --output=pcent /mnt/500 | grep -o '[0-9]*'`
+
+/usr/bin/mosquitto_pub \
+-h "broker.hivemq.com" \
+-t 'p0xMJcPc3mKSOsxU6nKJTT6l' \
+-m "system,device=${device} disk="${disk}

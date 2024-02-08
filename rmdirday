@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -z $1 ]; then #exit 0 ; fi
+   echo "ERROR: need number of days ago as paramenter"
+fi
+
+deletedate=`date --date="${1} days ago" +"%F"`
+#echo $deletedate
+rm -rf /home/frank/park/$deletedate
